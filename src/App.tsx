@@ -10,7 +10,7 @@ import {
   CartesianGrid,
   Legend,
 } from "recharts";
-import { pieChartData, barChartData } from "./data";
+import { pieChartData, barChartData } from "./store";
 
 const App = () => {
   return (
