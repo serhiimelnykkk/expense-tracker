@@ -8,17 +8,27 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
-import { pieChartData, barChartData } from "../../store";
 import { Flex } from "../../styles/styled";
 
-const Charts = () => {
+interface ChartsProps {
+  pie: {
+    name: string;
+    price: number;
+  }[];
+  bar: {
+    month: string;
+    price: number;
+  }[];
+}
+
+const Charts = ({ pie, bar }: ChartsProps) => {
   return (
     <Flex>
       <PieChart width={300} height={250}>
-        <Pie data={pieChartData} dataKey="price" label />
+        <Pie data={pie} dataKey="price" label />
         <Tooltip />
       </PieChart>
-      <BarChart width={730} height={250} data={barChartData}>
+      <BarChart width={730} height={250} data={bar}>
         <CartesianGrid />
         <XAxis dataKey="month" />
         <YAxis />
