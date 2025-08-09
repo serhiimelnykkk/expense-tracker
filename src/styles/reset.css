@@ -4,3 +4,11 @@
   box-sizing: border-box;
   font-family: 'Outfit', sans-serif;
 }
+
+button {
+  cursor: pointer;
+}
+
+body {
+  background-color: rgb(28, 28, 28);
+}

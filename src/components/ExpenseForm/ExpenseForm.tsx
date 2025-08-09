@@ -1,6 +1,7 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { type Expense } from "../../types";
 import { Flex } from "../../styles/styled";
+import styled from "styled-components";
 
 interface FormValues {
   name: string;
@@ -13,6 +14,56 @@ interface ExpenseFormProps {
   expenses: Expense[];
   setExpenses: React.Dispatch<React.SetStateAction<Expense[]>>;
 }
+
+const Input = styled.input`
+  background-color: #272727;
+  border: 1px solid #474747;
+  color: white;
+  padding: 5px 10px;
+  outline: none;
+  border-radius: 5px;
+  transition: border 0.3s;
+  font-size: 16px;
+
+  &:hover {
+    border: 1px solid #3689ff;
+  }
+`;
+
+const Form = styled.form`
+  background-color: #525252;
+  width: 45%;
+  padding: 15px 10px;
+  border-radius: 5px;
+  border: 2px solid gray;
+`;
+
+const Error = styled.p`
+  background-color: #ff7979;
+  border: 2px solid red;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
+`;
+
+const Heading = styled.h4`
+  color: white;
+`;
+
+const Button = styled.button`
+  background-color: #272727;
+  border: 1px solid #474747;
+  color: white;
+  padding: 5px 10px;
+  outline: none;
+  border-radius: 5px;
+  transition: border 0.3s;
+  font-size: 16px;
+
+  &:hover {
+    border: 1px solid #3689ff;
+  }
+`;
 
 const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
   const {
@@ -37,10 +88,11 @@ const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Flex $css={{ flexDirection: "column", maxWidth: "300px" }}>
-          <p>{errors.name?.message}</p>
-          <input
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Flex $css={{ flexDirection: "column", gap: "10px" }}>
+          <Heading>Add Expense</Heading>
+          {errors.name?.message && <Error>{errors.name?.message}</Error>}
+          <Input
             type="text"
             placeholder="Expense name"
             {...register("name", {
@@ -48,8 +100,8 @@ const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
               minLength: { value: 3, message: "Minimum length is 3" },
             })}
           />
-          <p>{errors.price?.message}</p>
-          <input
+          {errors.price?.message && <Error>{errors.price?.message}</Error>}
+          <Input
             type="number"
             placeholder="Price"
             {...register("price", {
@@ -61,8 +113,10 @@ const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
               },
             })}
           />
-          <p>{errors.category?.message}</p>
-          <input
+          {errors.category?.message && (
+            <Error>{errors.category?.message}</Error>
+          )}
+          <Input
             type="text"
             placeholder="Category"
             {...register("category", {
@@ -70,17 +124,30 @@ const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
               minLength: { value: 3, message: "Minimum Length is 3" },
             })}
           />
-          <p>{errors.date?.message}</p>
-          <input
+          {errors.date?.message && <Error>{errors.date?.message}</Error>}
+          <Input
             type="date"
             placeholder="Date"
             {...register("date", { required: "Required" })}
           />
-          <button disabled={isSubmitting} type="submit">
-            {isSubmitting ? "Loading..." : "Submit"}
-          </button>
+          <Flex>
+            <Button
+              style={{ width: "50%" }}
+              disabled={isSubmitting}
+              type="submit"
+            >
+              {isSubmitting ? "Loading..." : "Submit"}
+            </Button>
+            <Button
+              disabled={isSubmitting}
+              type="reset"
+              style={{ width: "50%" }}
+            >
+              {isSubmitting ? "Loading..." : "Reset"}
+            </Button>
+          </Flex>
         </Flex>
-      </form>
+      </Form>
     </>
   );
 };
