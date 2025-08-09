@@ -26,8 +26,6 @@ const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data, errors);
-
     const expense: Expense = {
       ...data,
       id: crypto.randomUUID(),
@@ -44,6 +42,7 @@ const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
           <p>{errors.name?.message}</p>
           <input
             type="text"
+            placeholder="Expense name"
             {...register("name", {
               required: "Required",
               minLength: { value: 3, message: "Minimum length is 3" },
@@ -52,6 +51,7 @@ const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
           <p>{errors.price?.message}</p>
           <input
             type="number"
+            placeholder="Price"
             {...register("price", {
               required: "Required",
               min: { value: 1, message: "Minimum price is 1" },
@@ -64,13 +64,18 @@ const ExpenseForm = ({ setExpenses }: ExpenseFormProps) => {
           <p>{errors.category?.message}</p>
           <input
             type="text"
+            placeholder="Category"
             {...register("category", {
               required: "Required",
               minLength: { value: 3, message: "Minimum Length is 3" },
             })}
           />
           <p>{errors.date?.message}</p>
-          <input type="date" {...register("date", { required: "Required" })} />
+          <input
+            type="date"
+            placeholder="Date"
+            {...register("date", { required: "Required" })}
+          />
           <button disabled={isSubmitting} type="submit">
             {isSubmitting ? "Loading..." : "Submit"}
           </button>
