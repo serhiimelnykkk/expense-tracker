@@ -2,9 +2,14 @@ import { type Expense } from "../../types";
 
 interface DataDisplayerProps {
   expenses: Expense[];
+  setExpenses: React.Dispatch<React.SetStateAction<Expense[]>>;
 }
 
-const DataDisplayer = ({ expenses }: DataDisplayerProps) => {
+const DataDisplayer = ({ expenses, setExpenses }: DataDisplayerProps) => {
+  const handleExpenseRemove = (id: string) => {
+    setExpenses((prev) => prev.filter((expense) => expense.id !== id));
+  };
+
   return (
     <table>
       <thead>
@@ -22,6 +27,11 @@ const DataDisplayer = ({ expenses }: DataDisplayerProps) => {
             <td>{expense.category}</td>
             <td>{expense.price}</td>
             <td>{expense.date}</td>
+            <td>
+              <button onClick={() => handleExpenseRemove(expense.id)}>
+                Remove
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>

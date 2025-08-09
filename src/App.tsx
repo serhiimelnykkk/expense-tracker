@@ -11,7 +11,7 @@ const App = () => {
   return (
     <div>
       <Charts pie={pieChartData} bar={barChartData} />
-      <DataDisplayer expenses={expenses} />
+      <DataDisplayer expenses={expenses} setExpenses={setExpenses} />
       <ExpenseForm expenses={expenses} setExpenses={setExpenses} />
     </div>
   );
